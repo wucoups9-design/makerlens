@@ -1,0 +1,41 @@
+{
+  "aggregate": {
+    "metrics/precision(B)": 0.9765386641342761,
+    "metrics/recall(B)": 0.7815126050420168,
+    "metrics/mAP50(B)": 0.8932105654761906,
+    "metrics/mAP50-95(B)": 0.6039984913662961,
+    "fitness": 0.6039984913662961
+  },
+  "per_class": [
+    {
+      "Class": "gloves_worn",
+      "Images": 8,
+      "Instances": 14,
+      "Box-P": 0.95579,
+      "Box-R": 0.85714,
+      "Box-F1": 0.90378,
+      "mAP50": 0.90385,
+      "mAP75": 0.69099,
+      "mAP50-95": 0.60368
+    },
+    {
+      "Class": "bare_hands",
+      "Images": 10,
+      "Instances": 17,
+      "Box-P": 0.99729,
+      "Box-R": 0.70588,
+      "Box-F1": 0.82666,
+      "mAP50": 0.88257,
+      "mAP75": 0.86929,
+      "mAP50-95": 0.60432
+    }
+  ],
+  "speed_ms": {
+    "preprocess": 0.7926078823529202,
+    "inference": 29.212002470588246,
+    "loss": 0.00018870588235810632,
+    "postprocess": 17.059654352941152
+  },
+  "image_count": 17,
+  "note": "P/R are Ultralytics curve-selected values, not fixed conf=0.4."
+}
