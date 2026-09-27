@@ -25,6 +25,8 @@ Keep private weights at `ml/models/goggles-v1.pt` and `ml/models/gloves-v3-clean
 
 ## Run on a local file
 
+Select `--mode gloves`, `--mode goggles`, or `--mode both` (default). Only selected detectors are loaded and run; summaries and web review records include the selection. The webpage exposes two teacher-controlled checkboxes and requires at least one selection.
+
 For the image-upload webpage, start `python ml/serve.py --goggles /path/to/goggles.pt --gloves /path/to/gloves.pt` and open `http://127.0.0.1:8765`. Images are processed locally with temporary files cleared after inference. See the [Chinese walkthrough](../README.zh-CN.md).
 
 ```sh

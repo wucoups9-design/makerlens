@@ -55,6 +55,10 @@ def handler_for(goggles, gloves):
                 return self.reply(403, {'error': '请从本机检测页面提交'})
             if self.path != '/detect':
                 return self.reply(404, {'error': '接口不存在'})
+            mode = self.headers.get('X-MakerLens-Mode', 'both')
+            if mode not in ('gloves', 'goggles', 'both'):
+                return self.reply(400, {'error': '请选择手套、护目镜或两项检测'})
+            selected = [name for name in provenance if mode == 'both' or name == mode]
             try:
                 length = int(self.headers.get('Content-Length', '0'))
             except ValueError:
@@ -77,13 +81,15 @@ def handler_for(goggles, gloves):
                     output = root / 'result'
                     subprocess.run([sys.executable, str(HERE / 'run.py'), str(root / 'input.png'),
                                     '--goggles', str(goggles), '--gloves', str(gloves),
+                                    '--mode', mode,
                                     '--output', str(output)], check=True, capture_output=True, timeout=180)
                     record = json.loads((output / 'detections.jsonl').read_text().splitlines()[0])
                     summary = json.loads((output / 'summary.json').read_text())
                     preview = base64.b64encode((output / 'preview.jpg').read_bytes()).decode()
                 self.reply(200, {'image': 'data:image/jpeg;base64,' + preview,
                                  'input_sha256': hashlib.sha256(raw).hexdigest(),
-                                 'models': provenance, 'confidence': {'goggles': .4, 'gloves': .4},
+                                 'mode': mode, 'models': {name: provenance[name] for name in selected},
+                                 'confidence': {name: .4 for name in selected},
                                  'detections': record['detections'],
                                  'seconds': summary['elapsed_seconds']})
             except (ValueError, UnidentifiedImageError, Image.DecompressionBombError):

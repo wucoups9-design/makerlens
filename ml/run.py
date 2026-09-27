@@ -99,12 +99,14 @@ def main():
     parser.add_argument('--long-side',type=int,default=960)
     parser.add_argument('--stride',type=int,default=3,help='For video: process every Nth frame, retaining playback duration')
     parser.add_argument('--seconds',type=float,default=0,help='0=whole video, otherwise first N seconds')
+    parser.add_argument('--mode', choices=['gloves','goggles','both'], default='both')
     args=parser.parse_args()
     if not args.source.is_file(): parser.error('Source file does not exist')
     if args.stride<1 or args.long_side<64 or args.imgsz<32 or args.seconds<0: parser.error('Invalid size/stride/seconds')
     if not all(0<c<1 for c in (args.goggles_conf,args.gloves_conf)): parser.error('Confidence must be between 0 and 1')
     models=[]
     for name,path,conf in [('goggles',args.goggles,args.goggles_conf),('gloves',args.gloves,args.gloves_conf)]:
+        if args.mode != 'both' and name != args.mode: continue
         if not path.is_file(): parser.error(f'Missing model: {path}')
         model=YOLO(str(path))
         if [model.names[i] for i in range(len(model.names))]!=EXPECTED[name]:
@@ -160,8 +162,8 @@ def main():
         if not processed: raise RuntimeError('No frames decoded')
         media={'type':'video','source_fps':fps,'output_fps':fps/args.stride,'source_frames_read':n,
                'width':output_size[0],'height':output_size[1],'audio':'omitted','stride':args.stride}
-    summary={'source':str(args.source.resolve()),'output':str(output.resolve()),'models':{name:str(path.resolve()) for name,path in [('goggles',args.goggles),('gloves',args.gloves)]},
-             'device':args.device,'confidence':{'goggles':args.goggles_conf,'gloves':args.gloves_conf},
+    summary={'source':str(args.source.resolve()),'output':str(output.resolve()),'mode':args.mode,'models':{name:str(path.resolve()) for name,path in [('goggles',args.goggles),('gloves',args.gloves)] if args.mode=='both' or name==args.mode},
+             'device':args.device,'confidence':{name:conf for name,model,conf in models},
              'imgsz':args.imgsz,'processed_frames':processed,'media':media,'elapsed_seconds':round(time.perf_counter()-started,3),
              'detections_over_frames':dict(count),'limitations':['Counts are frame detections, NOT unique people or incidents.',
                 'No detection does not mean safe. Occlusion and incorrect predictions remain possible.',
