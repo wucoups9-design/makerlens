@@ -1,43 +1,65 @@
 # MakerLens
 
-AI-assisted STEM workshop safety monitoring prototype.
+AI-assisted STEM workshop safety monitoring research prototype.
 
-## Features
+## What it demonstrates
 
-- Safety-goggle and glove monitoring interface
-- Rule-based workshop safety alerts
-- Teacher monitoring dashboard
-- Camera-based prototype workflow
-- Local image/video detection using two fine-tuned YOLO11n models
+- A browser-based teacher monitoring dashboard
+- Local image/video inference with two fine-tuned YOLO11n detectors
+- Four visual labels: `goggles_worn`, `eyes_unprotected`, `gloves_worn`, and `bare_hands`
+- Annotated media plus structured, frame-level detection logs
 - Video-grouped evaluation, error auditing, and documented limitations
 
-## Project Status — 2026-09-23
+**MakerLens is not a validated safety system.** A missing detection does not mean that a scene is safe, and detecting gloves does not determine whether gloves are appropriate for a particular operation. The prototype does not control equipment or make disciplinary decisions.
 
-The first local computer-vision baseline has been trained and evaluated. Two independent detectors process the same image/video and export annotated media and structured detections.
+## Project status — 2026-09-27
 
-**This is a research prototype, not a validated safety system.** False positives and missed detections remain substantial across scenes. A missing detection does not imply safety, and detecting gloves does not determine whether gloves are appropriate for a particular operation.
+The repository contains two related but separate parts:
 
-The existing web dashboard (`index.html`, `app.js`, `styles.css`) is preserved. The Python pipeline in [`vision.py`](VISION_GUIDE.md) runs separately: this update does **not** connect live model predictions to the web dashboard or deploy a new inference service.
+1. The existing static web dashboard: `index.html`, `app.js`, and `styles.css`.
+2. The local Python computer-vision pipeline in [`ml/`](ml/README.md).
 
-## Demo
+The Python pipeline runs two independent detectors on the same frame. It is not a jointly trained four-class model, a person tracker, or a safety-compliance classifier. Live predictions are not yet connected to the web dashboard.
 
-The web interface has been tested through Tencent Cloud EdgeOne. Local video inference is now available through [`vision.py`](vision.py); see the [setup and usage guide](VISION_GUIDE.md).
+The current glove candidate, `gloves-v3-cleanstart`, was trained from generic YOLO11n weights after review of a 149-image training set. The local interview package was smoke-tested on a separate sample image and on two full videos. Those media, model weights, datasets, and prediction outputs are private and are not included here.
 
-No participant photos, source videos, datasets, prediction videos, or model weights are included in this public repository. Running inference requires the two locally trained weights described in [`MODEL_CARD.md`](MODEL_CARD.md).
+## Development evaluation
 
-## Baseline results
+| Model | Train / validation / test images | Test source videos | Precision | Recall | mAP50 | mAP50–95 |
+|---|---:|---:|---:|---:|---:|---:|
+| Goggles v1 | 86 / 19 / 19 | 2 | 0.722 | 0.850 | 0.804 | 0.426 |
+| Gloves v3 clean-start | 149 / 19 / 17 | 3 | 0.992 | 0.847 | 0.913 | 0.626 |
 
-| Model | Test images / source videos | mAP50 | mAP50–95 |
-|---|---:|---:|---:|
-| Goggles / unprotected eyes | 19 / 2 | 80.4% | 42.6% |
-| Gloves / bare hands | 17 / 3 | 89.3% | 60.4% |
+These small sets contain correlated video frames. Splits were separated by source video file, but participant/session independence was not established. The 17-image glove test set was retained from the earlier development cycle, so the v3 result is a regression/candidate comparison—not a fresh, final generalization test and not a deployment accuracy claim.
 
-These are small, correlated video-frame test sets, **not deployment accuracy claims**. Only source-video-file separation was verified, not participant or recording-session independence. Glove annotations are AI-generated and have not received independent human acceptance.
+See the [evaluation and failure-analysis report](ml/reports/BASELINE.md).
 
-See the [evaluation report and failure analysis](BASELINE.md) and [next steps](VISION_GUIDE.md#next-steps).
+## Local demo
 
-## Privacy and scope
+Install the Python dependencies, keep the private weights outside Git, and run:
 
-Inference accepts local files and does not send input images/videos to a remote inference service. Results can contain identifiable images and local paths: keep them private unless separately reviewed and authorized for sharing. The repository ignore rules exclude datasets, media, weights, and generated runs.
+```sh
+python ml/run.py "/path/to/image-or-video" \
+  --goggles "/path/to/goggles-best.pt" \
+  --gloves "/path/to/gloves-best.pt"
+```
 
-The project uses pretrained YOLO models and AI-assisted implementation/annotation. It is an application and evaluation baseline, not a new detection algorithm. Review dependency licenses and obtain appropriate image-use permission before redistribution or deployment.
+The runner never uploads the source file. It creates an annotated image/video, a JSON Lines detection log, and a summary. Default confidence is 0.4 for each detector; this is a display setting, not a validated alarm threshold. See the full [local setup and usage guide](ml/README.md).
+
+## Observed failure cases
+
+Full-video testing retained failures instead of selecting only successful frames. Observed issues include:
+
+- White sleeves detected as gloves
+- Shirt graphics detected as bare hands
+- Exposed eyes missed in unfamiliar glove-focused scenes
+- Errors around motion blur, image boundaries, overlapping hands, and small/background people
+- Ambiguous goggles transitions and confusion with ordinary glasses
+
+These findings are why the project is presented as a human-review aid and research prototype.
+
+## Privacy and public-repository policy
+
+No participant photos, source videos, datasets, CVAT annotations, prediction media, local paths, or model weights are published. `.gitignore` excludes common private-data and generated-output formats. Anyone reusing the project must obtain appropriate image-use permission and review dependency/model licenses.
+
+The project uses pretrained YOLO models and AI-assisted implementation/annotation. Its contribution is the applied workflow—data review, transfer learning, evaluation, error analysis, and local prototype integration—not a new object-detection algorithm.

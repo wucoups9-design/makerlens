@@ -1,0 +1,41 @@
+{
+  "aggregate": {
+    "metrics/precision(B)": 0.7224002320705213,
+    "metrics/recall(B)": 0.85,
+    "metrics/mAP50(B)": 0.8038026315789474,
+    "metrics/mAP50-95(B)": 0.426372381267918,
+    "fitness": 0.426372381267918
+  },
+  "per_class": [
+    {
+      "Class": "goggles_worn",
+      "Images": 7,
+      "Instances": 7,
+      "Box-P": 0.69369,
+      "Box-R": 1.0,
+      "Box-F1": 0.81915,
+      "mAP50": 0.883,
+      "mAP75": 0.759,
+      "mAP50-95": 0.56097
+    },
+    {
+      "Class": "eyes_unprotected",
+      "Images": 9,
+      "Instances": 10,
+      "Box-P": 0.75111,
+      "Box-R": 0.7,
+      "Box-F1": 0.72465,
+      "mAP50": 0.72461,
+      "mAP75": 0.11062,
+      "mAP50-95": 0.29177
+    }
+  ],
+  "speed_ms": {
+    "preprocess": 1.2384933684210553,
+    "inference": 24.778769736842104,
+    "loss": 0.00014910526315391412,
+    "postprocess": 15.518495578947356
+  },
+  "image_count": 19,
+  "note": "P/R are Ultralytics curve-selected values, not fixed conf=0.4."
+}

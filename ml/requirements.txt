@@ -1,0 +1,8 @@
+# Verified on this Mac with Python 3.9.6; use the existing virtual environment.
+ultralytics==8.4.159
+torch==2.8.0
+torchvision==0.23.0
+numpy==1.26.4
+opencv-python==4.11.0.86
+Pillow==11.3.0
+PyYAML==6.0.3
