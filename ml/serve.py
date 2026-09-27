@@ -2,6 +2,7 @@
 import argparse
 import base64
 import io
+import hashlib
 import json
 import subprocess
 import sys
@@ -17,6 +18,8 @@ Image.MAX_IMAGE_PIXELS = 20_000_000
 
 
 def handler_for(goggles, gloves):
+    provenance = {name: {'filename': path.name, 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
+                  for name, path in [('goggles', goggles), ('gloves', gloves)]}
     class Handler(BaseHTTPRequestHandler):
         def reply(self, status, payload, mime='application/json'):
             data = json.dumps(payload).encode() if mime == 'application/json' else payload
@@ -39,6 +42,12 @@ def handler_for(goggles, gloves):
                 return self.reply(403, {'error': '仅允许本机页面访问'})
             if self.path == '/':
                 return self.reply(200, (HERE / 'web.html').read_bytes(), 'text/html; charset=utf-8')
+            assets = {'/dashboard': ('index.html', 'text/html; charset=utf-8'),
+                      '/app.js': ('app.js', 'text/javascript; charset=utf-8'),
+                      '/styles.css': ('styles.css', 'text/css; charset=utf-8')}
+            if self.path in assets:
+                filename, mime = assets[self.path]
+                return self.reply(200, (HERE.parent / filename).read_bytes(), mime)
             self.reply(404, {'error': '页面不存在'})
 
         def do_POST(self):
@@ -73,6 +82,8 @@ def handler_for(goggles, gloves):
                     summary = json.loads((output / 'summary.json').read_text())
                     preview = base64.b64encode((output / 'preview.jpg').read_bytes()).decode()
                 self.reply(200, {'image': 'data:image/jpeg;base64,' + preview,
+                                 'input_sha256': hashlib.sha256(raw).hexdigest(),
+                                 'models': provenance, 'confidence': {'goggles': .4, 'gloves': .4},
                                  'detections': record['detections'],
                                  'seconds': summary['elapsed_seconds']})
             except (ValueError, UnidentifiedImageError, Image.DecompressionBombError):

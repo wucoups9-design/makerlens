@@ -14,6 +14,8 @@ python ml/serve.py --goggles /path/to/goggles-v1.pt --gloves /path/to/gloves-v3-
 
 仓库根目录 `index.html` 是早期仪表盘展示。真实检测入口是上述本机网页服务；静态托管本身不能运行 Python 模型。
 
+本机页面也提供仪表盘入口，两者可以互相切换。检测后可填写漏检、误检、框不准等人工记录并下载 JSON，用于后续补拍与复核；记录不会触发训练。
+
 ## 已完成的工作
 
 - 使用两个 YOLO11n 微调模型执行同画面的检测。
