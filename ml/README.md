@@ -25,6 +25,8 @@ Keep private weights at `ml/models/goggles-v1.pt` and `ml/models/gloves-v3-clean
 
 ## Run on a local file
 
+For the image-upload webpage, start `python ml/serve.py --goggles /path/to/goggles.pt --gloves /path/to/gloves.pt` and open `http://127.0.0.1:8765`. Images are processed locally with temporary files cleared after inference. See the [Chinese walkthrough](../README.zh-CN.md).
+
 ```sh
 python ml/run.py "/path/to/video.mp4" \
   --goggles "/path/to/goggles-best.pt" \

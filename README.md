@@ -1,5 +1,7 @@
 # MakerLens
 
+[中文项目介绍与真实检测页面](README.zh-CN.md)
+
 AI-assisted STEM workshop safety monitoring research prototype.
 
 ## What it demonstrates
@@ -35,6 +37,8 @@ These small sets contain correlated video frames. Splits were separated by sourc
 See the [evaluation and failure-analysis report](ml/reports/BASELINE.md).
 
 ## Local demo
+
+For the local image-upload web interface, run `python ml/serve.py --goggles "/path/to/goggles-best.pt" --gloves "/path/to/gloves-best.pt"` and open `http://127.0.0.1:8765`. It returns real model boxes and classes. The legacy static dashboard remains separate from this new local interface.
 
 Install the Python dependencies, keep the private weights outside Git, and run:
 

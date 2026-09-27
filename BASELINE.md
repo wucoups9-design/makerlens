@@ -1,5 +1,7 @@
 # Baseline evaluation — 2026-09-23
 
+> Historical v1 report. Current development results: [ml/reports/BASELINE.md](ml/reports/BASELINE.md).
+
 This report publishes aggregate results only. No participant media, dataset labels, local machine paths, or prediction images are published.
 
 ## Data and scope

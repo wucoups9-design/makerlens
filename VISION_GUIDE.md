@@ -1,5 +1,7 @@
 # MakerLens — local vision baseline
 
+> Historical root-level runner guide. Use [ml/README.md](ml/README.md) for the current pipeline and [中文指南](README.zh-CN.md) for the real image-detection webpage.
+
 Two separate YOLO11n detectors run on the same frame. This is not a jointly trained four-class model, a person tracker, or a safety-compliance classifier. The web dashboard is not connected to this pipeline yet.
 
 ## Labels

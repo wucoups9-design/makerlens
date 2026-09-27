@@ -1,5 +1,7 @@
 # Private local model weights
 
+> Historical v1 weight configuration. Current models: [ml/models/README.md](ml/models/README.md).
+
 Weights are not included in the public repository. Copy your locally trained files here, or provide their locations with `--goggles` and `--gloves`.
 
 | Filename | Ordered class names | SHA-256 of the evaluated local baseline |
