@@ -1,6 +1,6 @@
 # MakerLens local vision pipeline
 
-Two independent YOLO11n detectors process the same local image or video. This is not a four-class joint model, person tracker, machine-state detector, or safety-compliance system. The web dashboard is not connected to this pipeline yet.
+Two independent YOLO11n detectors process the same local image or video. The local upload webpage displays real predictions and exports manual review records. The original dashboard links to it, while its demonstration widgets remain separate. Person tracking, machine-state detection, and safety-compliance decisions are outside the current implementation.
 
 ## Labels
 

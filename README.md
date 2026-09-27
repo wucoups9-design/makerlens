@@ -21,9 +21,9 @@ The repository contains two related but separate parts:
 1. The existing static web dashboard: `index.html`, `app.js`, and `styles.css`.
 2. The local Python computer-vision pipeline in [`ml/`](ml/README.md).
 
-The Python pipeline runs two independent detectors on the same frame. It is not a jointly trained four-class model, a person tracker, or a safety-compliance classifier. Live predictions are not yet connected to the web dashboard.
+The Python pipeline runs two independent detectors on the same frame. The local upload page displays real inference results and exports manual review records. The original dashboard links to this page; its demonstration widgets do not consume model predictions. There is no person tracking or safety-compliance classification.
 
-The current glove candidate, `gloves-v3-cleanstart`, was trained from generic YOLO11n weights after review of a 149-image training set. The local interview package was smoke-tested on a separate sample image and on two full videos. Those media, model weights, datasets, and prediction outputs are private and are not included here.
+The current glove candidate, `gloves-v3-cleanstart`, was trained from generic YOLO11n weights after review of a 149-image training set. Its local image-upload workflow was tested with the existing rehearsal image. The two full-video checks belong to the earlier baseline; they do not establish v3 performance on fresh scenes. Those media, model weights, datasets, and prediction outputs are private and are not included here.
 
 ## Development evaluation
 
