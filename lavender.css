@@ -1,0 +1,33 @@
+/* Bright taro-lavender learning studio, with warm yellow accents. */
+.capture-panel{margin:20px auto;padding:18px 24px;max-width:1100px;background:#f3e9ff;border:1px solid #dbc3ef;border-radius:18px;color:#533669}.capture-panel summary{cursor:pointer;font-weight:700}.capture-panel summary span{float:right;font-size:13px}.capture-panel p{font-size:13px}.capture-panel video{width:260px;max-width:100%;border-radius:12px;display:block;background:#e7dcf2}.capture-panel button:disabled{opacity:.5;cursor:default}
+:root{color-scheme:light;background:#fcfaff;color:#40364f}
+body{background:#fcfaff;color:#40364f}
+header{background:#f3eaff;border-color:#e5d5f6}
+header strong{color:#694298}.brand-name{color:#885ab6}
+header small,.side p,.muted{color:#73647e}
+.side{background:#f8f2ff;border-color:#eadff4}
+.side button{color:#665075;border-radius:13px}
+.side button:hover{background:#eee0fb}
+.side button.active{background:#dfc6f5;color:#51306d;font-weight:700;box-shadow:inset 3px 0 #a66dce}
+.content{background:radial-gradient(ellipse at top right,#f4eafa80,transparent 55%)}
+h1,h2,h3{color:#513764}
+.eyebrow{color:#84629c}
+.hero{background:linear-gradient(115deg,#efe1fc 0%,#f7edff 68%,#fff5d8 100%);border:1px solid #e7d6f6;border-radius:22px}
+.card{border-color:#eadff1;box-shadow:0 5px 22px #8d5fb309;border-radius:18px}
+button{border-color:#dfcce9;color:#65427f;background:#fff}
+button:hover{background:#f5eafa}
+button.primary{background:#dfc5f5;border-color:#d2adeb;color:#4d286b;font-weight:700}
+button.primary:hover{background:#d4b3ed}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #9360bb;outline-offset:3px}
+input,textarea,select{border-color:#e2d3ec;color:#44364f;background:#fff}
+input[type=file]::file-selector-button{background:#f0e3fb;border:0;border-radius:7px;padding:8px 12px;color:#634078;margin-right:12px;cursor:pointer}
+.pill{background:#fff0bb;color:#775817}
+.notice{background:#fff7dd;color:#69542e;border:1px solid #f1e3b9}
+.progress{background:#f0e4f8}.progress span{background:#b687d5}
+.entry{border-color:#c19bdd;background:#faf5ff;color:#51445d}
+.thumb{background:#f8f3fc}
+a{color:#79509b}
+#toast{background:#ecdafb;color:#503065;border:1px solid #d7b8ed;box-shadow:0 5px 25px #8b5fa51f}
+.poster{background:#fffdfb;border-color:#e9d8f5}
+th,td{border-color:#ebdff2}
+@media print{body,.content{background:white}.poster{border:0}}

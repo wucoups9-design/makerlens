@@ -1,0 +1,81 @@
+# DRAFT ONLY: do not activate before ICP approval and certificate verification.
+# Include in nginx's http {} context. No private weights are served by nginx.
+# Set MAKERLENS_ORIGIN=https://makerlens-ai.cn in the private service environment.
+# Certificate paths below are placeholders; no certificate has been issued here.
+limit_req_zone $binary_remote_addr zone=makerlens_photo:10m rate=30r/m;
+
+server {
+    listen 80;
+    server_name makerlens-ai.cn;
+    access_log off;
+    return 301 https://makerlens-ai.cn$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name makerlens-ai.cn;
+    ssl_certificate /etc/nginx/makerlens-tls/fullchain.pem;
+    ssl_certificate_key /etc/nginx/makerlens-tls/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    server_tokens off;
+    access_log off;
+    client_max_body_size 25m;
+    client_body_timeout 30s;
+    add_header X-Content-Type-Options nosniff always;
+    add_header Referrer-Policy no-referrer always;
+    add_header X-Frame-Options DENY always;
+
+    # Do not serve this application under arbitrary Host values.
+    if ($host != makerlens-ai.cn) { return 444; }
+
+    location ~ ^/api/(ppe/(detect|session|settings|teacher/verify)|sketch-feedback|classroom/(course|course/save|list|project|mine|sync|review|observations|observation|observation/resolve))$ {
+        default_type application/json;
+        charset utf-8;
+        if ($request_method != POST) { return 405 '{"error":"请使用照片上传表单"}'; }
+        # The Python backend accepts Content-Length, not chunked uploads.
+        if ($http_content_length = "") { return 411 '{"error":"请通过网页选择照片上传"}'; }
+        limit_req zone=makerlens_photo burst=5 nodelay;
+        limit_req_status 429;
+        error_page 413 = @image_too_large;
+        error_page 429 = @too_many_requests;
+        error_page 502 504 = @service_unavailable;
+        proxy_pass http://127.0.0.1:8766;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header Connection "";
+        proxy_connect_timeout 5s;
+        proxy_read_timeout 200s;
+        proxy_send_timeout 30s;
+        proxy_request_buffering off;
+        proxy_buffering off;
+        proxy_cache off;
+        proxy_max_temp_file_size 0;
+        proxy_next_upstream off;
+        # Original Origin and Authorization headers pass through unchanged;
+        # do not manufacture a trusted Origin at the proxy.
+    }
+
+    # Explicit public allowlist. /health, /models, /ml and secrets stay private.
+    location ~ ^/(|index\.html|workshop\.(js|css)|workshop-v2\.js|classroom\.js|features\.css|studio\.(js|css)|auto-record(-v2)?\.js|pilot-access\.js|ppe-live\.js|ppe-alerts\.js|lavender\.css|steam-hero\.png|gyroscope-illustration\.svg|api/ppe/status|api/status)$ {
+        limit_except GET { deny all; }
+        proxy_pass http://127.0.0.1:8766;
+        proxy_set_header Host $host;
+        proxy_cache off;
+    }
+    location / { return 404; }
+    location @image_too_large {
+        default_type application/json;
+        charset utf-8;
+        return 413 '{"error":"请求超过大小限制，请缩小照片或档案"}';
+    }
+    location @too_many_requests {
+        default_type application/json;
+        charset utf-8;
+        return 429 '{"error":"请求过于频繁，请稍后重试"}';
+    }
+    location @service_unavailable {
+        default_type application/json;
+        charset utf-8;
+        return 503 '{"error":"识别服务暂时不可用，请稍后重试"}';
+    }
+}

@@ -17,7 +17,7 @@ LIMIT = 15 * 1024 * 1024
 Image.MAX_IMAGE_PIXELS = 20_000_000
 
 
-def handler_for(goggles, gloves):
+def handler_for(goggles, gloves, live_infer=None):
     provenance = {name: {'filename': path.name, 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
                   for name, path in [('goggles', goggles), ('gloves', gloves)]}
     class Handler(BaseHTTPRequestHandler):
@@ -43,6 +43,21 @@ def handler_for(goggles, gloves):
             if self.path == '/':
                 return self.reply(200, (HERE / 'web.html').read_bytes(), 'text/html; charset=utf-8')
             assets = {'/dashboard': ('index.html', 'text/html; charset=utf-8'),
+                      '/workshop.js': ('workshop.js', 'text/javascript; charset=utf-8'),
+                      '/workshop-v2.js': ('workshop-v2.js', 'text/javascript; charset=utf-8'),
+                      '/classroom.js': ('classroom.js', 'text/javascript; charset=utf-8'),
+                      '/features.css': ('features.css', 'text/css; charset=utf-8'),
+                      '/auto-record-v2.js': ('auto-record-v2.js', 'text/javascript; charset=utf-8'),
+                      '/workshop.css': ('workshop.css', 'text/css; charset=utf-8'),
+                      '/lavender.css': ('lavender.css', 'text/css; charset=utf-8'),
+                      '/studio.css': ('studio.css', 'text/css; charset=utf-8'),
+                      '/studio.js': ('studio.js', 'text/javascript; charset=utf-8'),
+                      '/auto-record.js': ('auto-record.js', 'text/javascript; charset=utf-8'),
+                      '/pilot-access.js': ('pilot-access.js', 'text/javascript; charset=utf-8'),
+                      '/ppe-live.js': ('ppe-live.js', 'text/javascript; charset=utf-8'),
+                      '/ppe-alerts.js': ('ppe-alerts.js', 'text/javascript; charset=utf-8'),
+                      '/steam-hero.png': ('steam-hero.png', 'image/png'),
+                      '/gyroscope-illustration.svg': ('gyroscope-illustration.svg', 'image/svg+xml'),
                       '/app.js': ('app.js', 'text/javascript; charset=utf-8'),
                       '/styles.css': ('styles.css', 'text/css; charset=utf-8')}
             if self.path in assets:
@@ -75,6 +90,11 @@ def handler_for(goggles, gloves):
                     if source.width * source.height > 20_000_000:
                         raise ValueError('图片尺寸超过 2000 万像素')
                     frame = ImageOps.exif_transpose(source).convert('RGB')
+                if live_infer is not None:
+                    result = live_infer(frame, mode)
+                    return self.reply(200, {**result, 'input_sha256': hashlib.sha256(raw).hexdigest(),
+                        'mode': mode, 'models': {name: provenance[name] for name in selected},
+                        'confidence': {name: .4 for name in selected}})
                 with tempfile.TemporaryDirectory(prefix='makerlens-') as folder:
                     root = Path(folder)
                     frame.save(root / 'input.png')
@@ -96,7 +116,7 @@ def handler_for(goggles, gloves):
                 self.reply(400, {'error': '无法读取图片，请使用尺寸适中的 JPG 或 PNG'})
             except subprocess.TimeoutExpired:
                 self.reply(504, {'error': '检测超时，请缩小图片后重试'})
-            except (OSError, subprocess.CalledProcessError):
+            except (OSError, RuntimeError, subprocess.CalledProcessError):
                 self.reply(500, {'error': '检测失败，请检查本机模型与运行环境'})
     return Handler
 

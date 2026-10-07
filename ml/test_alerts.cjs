@@ -1,0 +1,18 @@
+const assert=require('assert'),Alerts=require('../ppe-alerts.js');
+const a=new Alerts();let t=1000;
+const frame=(names,rules={gloves:'required',goggles_required:true,sound:true},rev=1)=>({settings_revision:rev,mode:'both',rules,detections:names.map(n=>({class:n,confidence:.8}))});
+const step=(f)=>a.update(f,t+=1000);
+assert(!step(frame(['bare_hands'])).alerts.length);
+assert(!step(frame(['bare_hands'])).alerts.length);
+let r=step(frame(['bare_hands']));assert(r.alerts.length===1&&r.beep&&r.unknown.includes('眼部无法判断'));
+assert(!step(frame(['bare_hands'])).beep);
+r=step(frame([]));assert(!r.alerts.length&&r.unknown.length===2);
+assert(!step(frame(['bare_hands'])).alerts.length);
+a.reset();const forbidden={gloves:'forbidden',goggles_required:false,sound:true};
+for(let i=0;i<3;i++)r=step(frame(['gloves_worn'],forbidden));assert(r.alerts[0].includes('禁止'));
+r=step(frame(['bare_hands'],forbidden));assert(!r.alerts.length);
+a.reset();for(let i=0;i<3;i++)r=step(frame(['eyes_unprotected']));assert(r.alerts[0].includes('眼部'));
+r=step(frame(['eyes_unprotected'],undefined,2));assert(!r.alerts.length);
+a.reset();for(let i=0;i<3;i++)r=step(frame(['bare_hands'],{gloves:'required',goggles_required:false,sound:false}));assert(r.alerts.length&&!r.beep);
+a.reset();for(let i=0;i<3;i++)r=step(frame(['bare_hands'],{gloves:'observe',goggles_required:false,sound:true}));assert(!r.alerts.length&&r.observing);
+console.log('PASS: 3-frame confirmation, unknown vs violation, glove inversion, goggles, sound cooldown/mute, rule-change reset.');

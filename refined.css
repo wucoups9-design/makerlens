@@ -1,0 +1,62 @@
+/* Radix Violet light scale mapped to workshop roles; no remote font/CDN dependency. */
+@media screen {
+  :root { --surface:#fdfcfe; --subtle:#faf8ff; --control:#f4f0fe; --hover:#ebe4ff; --selected:#e1d9ff; --divider:#d4cafe; --border:#c2b5f5; --focus:#aa99ec; --accent:#6e56cf; --accent-hover:#654dc4; --secondary:#6550b9; --ink:#2f265f; }
+  body { background:var(--surface); color:var(--ink); font-family:'PingFang SC','Microsoft YaHei',sans-serif; }
+  header { background:white; padding:18px 30px; border-color:var(--divider); }
+  header strong { font-size:22px; color:var(--ink); letter-spacing:-.5px; }
+  header small,.muted,.side p { color:#675f7b; }
+  .brand-name { color:var(--secondary); }
+  .shell { max-width:1600px; grid-template-columns:218px minmax(0,1fr); }
+  .side { background:var(--subtle); padding:24px 14px; border-color:var(--divider); }
+  .side button { padding:12px 14px; margin:5px 0; border-radius:8px; color:#5b526e; font-size:14px; }
+  .side button:hover { background:var(--hover); }
+  .side button.active { color:var(--ink); background:var(--selected); box-shadow:inset 3px 0 var(--accent); font-weight:700; }
+  .side p { margin:24px 12px 0; line-height:1.65; }
+  .side select { font-size:13px; }
+  .content { background:var(--surface); padding:30px 36px; }
+  h1 { font-size:30px; letter-spacing:-.6px; margin:0 0 24px; }
+  h1,h2,h3 { color:var(--ink); }
+  h2 { font-size:19px; line-height:1.5; }
+  p { line-height:1.7; }
+  .card { border-color:#e6e1f0; border-radius:12px; box-shadow:none; padding:24px; }
+  details.card { padding:17px 22px; background:var(--subtle); }
+  details>summary { cursor:pointer; font-size:14px; line-height:1.6; }
+  button,button.primary { border-radius:8px; min-height:42px; padding:10px 17px; box-shadow:none; transform:none; font-weight:600; font-size:14px; }
+  button { border-color:var(--border); color:var(--secondary); }
+  button:hover { background:var(--hover); transform:none; }
+  button.primary { background:var(--accent); color:white; border:1px solid var(--accent); }
+  button.primary:hover { background:var(--accent-hover); }
+  button:disabled { background:#f1edf7; color:#797285; border-color:#dfdae7; opacity:1; cursor:not-allowed; }
+  input,textarea,select { border:1px solid var(--border); border-radius:8px; color:var(--ink); padding:11px; background:white; }
+  input[type=file]::file-selector-button { background:var(--control); color:var(--secondary); border-radius:5px; }
+  label { color:#504566; line-height:1.6; }
+  button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible { outline:3px solid var(--accent); outline-offset:3px; }
+  a { color:var(--secondary); text-underline-offset:3px; }
+  .actions { gap:10px; align-items:center; }
+  .entry { background:var(--subtle); border-color:var(--border); border-radius:0 8px 8px 0; }
+  .ai-feedback,.entry pre { background:var(--control); color:var(--ink); }
+  .capture-panel { background:var(--subtle); border-color:var(--divider); border-radius:10px; }
+  .studio-hero { background:var(--control); border-radius:14px; border:1px solid var(--divider); }
+  .hero-copy h1 { white-space:normal; }
+  .journey,.feature,.project-strip { border-radius:12px; box-shadow:none; }
+  #classroomMonitor { border-top:4px solid var(--accent); }
+  #monitorClients .entry { border:1px solid #e6e1f0; background:white; padding:12px; border-radius:10px; margin:0; }
+  #monitorClients .entry p { margin:8px 0; font-size:13px; }
+  #monitorClients .entry small { display:block; color:#675f7b; margin-top:8px; }
+  #monitorClients .entry button { border:0; background:var(--subtle); overflow:hidden; }
+  #ppeVideo { border-radius:10px!important; }
+  #ppeAlarm { border-radius:8px; font-weight:600; }
+  #toast { background:var(--ink); color:white; border:0; }
+  @media(max-width:800px) {
+    .shell { grid-template-columns:1fr; }
+    header { padding:14px 18px; }
+    .side { padding:10px; gap:5px; }
+    .side button { padding:10px; margin:0; font-size:12px; }
+    .side button:last-of-type { margin-top:0; }
+    .content { padding:22px 16px; }
+    .card { padding:18px; }
+    h1 { font-size:26px; margin-bottom:18px; }
+    .actions button { flex-grow:1; }
+  }
+  @media(prefers-reduced-motion:reduce) { *,*::before,*::after { transition:none!important; animation:none!important; scroll-behavior:auto!important; } }
+}
