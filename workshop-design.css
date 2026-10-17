@@ -1,0 +1,312 @@
+/* Selected by the user: the white and sage workshop, not the variant gallery. */
+:root {
+  color-scheme: light;
+  --surface:#fff; --page:#f7f9f8; --soft:#eaf1ec; --art:#e8efe9;
+  --ink:#263d35; --muted:#66746d; --line:#dce3de; --accent:#3b6958;
+  --accent-hover:#2d5547; --warm:#d5bd72;
+  font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;
+  font-size:14px; color:var(--ink); background:var(--page);
+}
+body {background:var(--page); color:var(--ink); line-height:1.65; -webkit-font-smoothing:antialiased}
+h1,h2,h3,p {overflow-wrap:anywhere}
+h1,h2,h3 {color:var(--ink); letter-spacing:0; font-weight:650}
+h1 {font-size:28px; line-height:1.35; margin:0}
+h2 {font-size:18px; line-height:1.5; margin:0 0 16px}
+h3 {font-size:15px; line-height:1.6}
+p {line-height:1.75}
+button,input,textarea,select {font:inherit}
+button {min-height:42px; padding:9px 16px; color:var(--ink); border:1px solid var(--line); border-radius:7px; background:var(--surface); font-size:13px; font-weight:550; box-shadow:none; transition:background-color 160ms, border-color 160ms, transform 120ms}
+button.primary {background:var(--accent); border:1px solid var(--accent); color:white}
+button:active:not(:disabled) {transform:translateY(1px)}
+button:disabled {opacity:.6; cursor:not-allowed}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible {outline:3px solid var(--accent); outline-offset:3px}
+input,textarea,select {padding:11px 12px; border:1px solid #bdc9c1; border-radius:7px; color:var(--ink); background:var(--surface); margin:7px 0 18px; min-width:0}
+input[type=file] {font-size:13px; padding:9px}
+input[type=file]::file-selector-button {font:inherit; background:var(--soft); color:var(--accent); border:0; border-radius:4px; padding:8px 12px; margin-right:10px; cursor:pointer}
+textarea {line-height:1.75}
+label {display:block; font-size:13px; font-weight:600; line-height:1.7}
+.check {align-items:flex-start; font-size:12px; font-weight:400; color:var(--muted); gap:9px}
+.check input {margin-top:4px; accent-color:var(--accent)}
+a {color:var(--accent); text-underline-offset:3px}
+.muted {color:var(--muted)}
+.studio-icon {width:20px; height:20px; flex:0 0 20px; vertical-align:middle}
+.skip-link {position:fixed; top:-80px; left:16px; padding:12px; background:white; z-index:100}
+.skip-link:focus {top:10px}
+.shell {display:grid; grid-template-columns:192px minmax(0,1fr); max-width:none; margin:0; min-height:calc(100svh - 70px)}
+.side {position:sticky; top:0; align-self:start; min-height:100svh; display:flex; flex-direction:column; padding:30px 18px 22px; background:var(--surface); border-right:1px solid var(--line); z-index:5}
+.workshop-brand {display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink); white-space:nowrap}
+.workshop-brand>svg {width:29px; height:29px; color:var(--accent); flex-shrink:0}
+.workshop-brand>strong {font-size:20px; letter-spacing:-.7px}
+.brand-sub {font-size:11px; color:var(--muted); padding-left:39px; margin-top:6px}
+.side .nav-caption {margin:34px 12px 10px; font-size:11px}
+.workshop-nav {display:flex; flex-direction:column; gap:4px}
+.side button.nav-item {display:flex; align-items:center; gap:12px; width:100%; border:0; padding:12px; margin:0; min-height:46px; text-align:left; color:var(--muted); font-size:13px; font-weight:450; border-radius:7px}
+.nav-item span {flex:1; white-space:nowrap}
+.nav-item small {font-size:10px; font-variant-numeric:tabular-nums}
+.side button.nav-item.active {background:var(--soft); color:var(--accent); font-weight:600; box-shadow:none}
+.side button.teacher-link {margin-top:20px}
+.side .project-switcher {margin-top:auto; padding-top:34px}
+.project-switcher label {font-size:11px; color:var(--muted); font-weight:400; margin:0 0 4px}
+.project-switcher select {font-size:12px; padding:8px 6px; border-color:var(--line); margin:0 0 4px; max-width:100%; background:var(--page)}
+.side #newProject {font-size:12px; margin:0; padding:8px; min-height:36px; color:var(--accent); border:0}
+.side .project-switcher p {margin:10px 8px 0; font-size:10px; line-height:1.8}
+.workshop-main {min-width:0}
+.workshop-topbar {height:76px; padding:0 38px; background:var(--surface); display:flex; justify-content:space-between; align-items:center; gap:20px; border-bottom:1px solid var(--line)}
+.breadcrumb {display:flex; gap:12px; align-items:center; font-size:12px; min-width:0}
+.breadcrumb span:first-child {color:var(--muted); max-width:30ch; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.workshop-identity {display:flex; align-items:center; gap:9px; font-size:12px; flex-shrink:0; max-width:40%; overflow-wrap:anywhere}
+.identity-dot {width:30px; height:30px; border-radius:50%; display:grid; place-items:center; background:var(--soft); color:var(--accent); flex-shrink:0}
+.identity-dot svg {width:16px; height:16px}
+.content {padding:36px 38px 28px; max-width:1440px; margin:0 auto; background:var(--page); min-width:0}
+.content:focus {outline:none}
+.page-heading {display:flex; align-items:end; justify-content:space-between; margin-bottom:28px}
+.page-heading p {font-size:13px; color:var(--muted); margin:8px 0 0}
+.content .card {padding:26px; background:var(--surface); border:1px solid var(--line); border-radius:12px; box-shadow:none; margin-bottom:20px}
+.content details.card {padding:16px 22px; background:var(--surface)}
+.content details.card>summary {font-size:14px; font-weight:550; padding:2px 0; color:var(--ink)}
+details>summary {cursor:pointer}
+.content details.card[open]>summary {margin-bottom:18px}
+.actions {align-items:center; gap:10px; margin:18px 0}
+.actions button {display:inline-flex; align-items:center; justify-content:center; gap:10px}
+.entry {padding:16px 18px; background:var(--page); border-color:#a6bfb0; border-radius:0 7px 7px 0; color:var(--ink); font-size:13px}
+.entry summary {color:var(--accent)}
+.entry small {color:var(--muted); font-size:11px}
+.entry .review {background:var(--soft); border-color:#b7cabc}
+.entry pre,.ai-feedback,.optional-fields {background:var(--page); color:var(--ink); font-family:inherit; font-size:14px; line-height:1.8; border-radius:8px}
+.thumb {background:var(--page); object-fit:contain; border-radius:7px}
+.notice {background:#faf4e5; color:#715726; border:1px solid #e8dab9; border-radius:8px; font-size:12px}
+th,td {border-color:var(--line); font-size:13px}
+th {font-weight:600; background:var(--page)}
+.pill,.status-badge {display:inline-flex; align-items:center; gap:8px; border-radius:4px; padding:4px 9px; font-size:11px; font-weight:550; background:var(--soft); color:var(--accent); width:fit-content}
+.status-badge .studio-icon {width:16px; height:16px; flex-basis:16px}
+.home-layout {display:grid; grid-template-columns:minmax(0,1fr) 248px; gap:20px}
+.project-card {display:grid; grid-template-columns:1fr 1fr; background:var(--surface); border:1px solid var(--line); border-radius:14px; overflow:hidden; min-width:0; min-height:330px}
+.project-copy {padding:34px; display:flex; flex-direction:column; align-items:start; gap:18px; min-width:0}
+.project-copy h2 {font-size:27px; line-height:1.4; margin:0}
+.project-copy p {font-size:13px; color:var(--muted); max-width:42ch; margin:10px 0 0}
+.project-meta {display:flex; flex-wrap:wrap; gap:8px 14px; font-size:11px; color:var(--muted)}
+.project-copy .actions {margin:auto 0 0; padding-top:18px}
+.project-copy .actions button {white-space:nowrap}
+.workshop-art {background:var(--art); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px; min-width:0}
+.workshop-drawing {display:block; width:100%; max-height:268px; color:var(--accent); overflow:visible}
+.workshop-drawing .ghost {opacity:.22; stroke-width:1}
+.workshop-drawing .layer {stroke:currentColor; stroke-width:1.4; transform-box:fill-box; transform-origin:center; transition:transform 260ms cubic-bezier(.23,1,.32,1)}
+.workshop-drawing .lower,.workshop-drawing .shaft {fill:white}
+.workshop-drawing .upper {fill:var(--warm)}
+.workshop-drawing .drawing-label {stroke-width:.8}
+.workshop-drawing .drawing-label path {stroke:currentColor}
+.workshop-drawing.exploded .shaft {transform:translateY(-20px)}
+.workshop-drawing.exploded .upper {transform:translateY(-13px)}
+.workshop-drawing.exploded .lower {transform:translateY(12px)}
+.workshop-drawing.exploded .tip {transform:translateY(22px)}
+.workshop-drawing.exploded .drawing-label {opacity:.3}
+.workshop-art>.thumb {height:248px; max-height:268px; background:transparent; margin:auto}
+.art-controls {display:flex; align-items:center; justify-content:space-between; gap:12px; width:100%; margin-top:auto; padding-top:12px; color:var(--accent); font-size:10px}
+.art-controls button {display:flex; align-items:center; gap:6px; font-size:11px; padding:6px 9px; min-height:32px; white-space:nowrap}
+.art-controls .studio-icon {width:14px; height:14px; flex-basis:14px}
+.next-up {background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:24px; display:flex; flex-direction:column}
+.next-up h2 {font-size:16px; margin-bottom:20px}
+.next-up ol {list-style:none; padding:0; margin:0 0 30px; display:grid; gap:18px}
+.next-up li {display:flex; align-items:start; gap:10px}
+.next-up li>button {border:0; text-align:left; padding:0; border-radius:3px; font-size:12px; font-weight:500; min-height:40px; background:transparent}
+.next-up li small {display:block; color:var(--muted); font-size:11px; font-weight:400; margin-top:3px}
+.step-dot {display:grid; place-items:center; flex:0 0 21px; height:21px; margin-top:2px; border:1px solid var(--line); border-radius:50%; color:var(--muted); font-size:10px}
+.next-up li:first-child .step-dot {background:var(--soft); border-color:var(--soft); color:var(--accent)}
+.progress-caption {display:flex; justify-content:space-between; font-size:11px; color:var(--muted); margin-top:auto; gap:12px}
+.progress {height:5px; border-radius:3px; background:var(--line); margin:18px 0 0}
+.progress span {height:5px; background:var(--accent); border-radius:3px}
+.home-bottom {display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-top:30px}
+.home-bottom>section {min-width:0}
+.section-heading {display:flex; align-items:center; justify-content:space-between; gap:14px; min-height:40px; margin-bottom:10px}
+.section-heading h2 {font-size:16px; margin:0}
+.text-button {border:0; padding:4px; background:transparent; min-height:32px; font-size:11px; color:var(--muted)}
+.activity-row {display:flex; align-items:center; gap:14px; padding:16px 0; min-height:62px; width:100%; border:0; border-top:1px solid var(--line); border-radius:0; background:transparent; text-align:left; font-size:12px; font-weight:400}
+.activity-row>.studio-icon {color:var(--accent)}
+.activity-row>span {flex:1; min-width:0}
+.activity-row strong {font-weight:500}
+.activity-row small {display:block; font-size:11px; color:var(--muted); white-space:nowrap; text-overflow:ellipsis; overflow:hidden; max-width:38ch}
+.activity-row time {font-size:10px; color:var(--muted); max-width:95px; text-align:right}
+.quick-row {display:flex; justify-content:space-between; align-items:center; gap:14px; width:100%; padding:15px 0; border:0; border-top:1px solid var(--line); border-radius:0; background:transparent; font-size:12px; font-weight:400; text-align:left}
+.quick-row>span {display:flex; align-items:center; gap:12px}
+.workshop-empty {border-top:1px solid var(--line); padding:22px 0; font-size:13px}
+.workshop-empty span {font-size:12px; color:var(--muted)}
+.workshop-task {margin-top:28px; padding-top:16px; border-top:1px solid var(--line); font-size:12px; color:var(--muted)}
+.workshop-task>summary {width:fit-content}
+.workshop-task p {max-width:70ch}
+.capture-panel {margin:0 38px 24px 230px; max-width:none; padding:16px 20px; background:var(--surface); border:1px solid var(--line); border-radius:8px; color:var(--muted); font-size:12px}
+.capture-panel summary {font-size:12px}
+.capture-panel summary span {float:right; font-size:11px}
+.capture-panel video {max-height:260px; border-radius:8px}
+.record-dialog,dialog {border:1px solid var(--line); border-radius:12px; padding:24px; color:var(--ink); background:var(--surface); max-width:calc(100vw - 32px); max-height:85svh; overflow:auto}
+.record-dialog::backdrop,dialog::backdrop {background:#162c235e}
+#toast {background:var(--ink); color:white; border:0; border-radius:8px; font-size:13px; max-width:calc(100vw - 32px); box-shadow:0 4px 18px #172b231a}
+/* Retain actual Cube loading and the user's vertically stacked learning layout. */
+.工坊 {--钢蓝:var(--accent); --黄铜:#a88e4c; --纸白:var(--surface); --墨:var(--ink); --浅线:var(--line); background:var(--surface); border:1px solid var(--line); padding:26px; border-radius:12px; font-family:inherit}
+.工坊标题 h2 {font-size:21px}
+.工坊标题 p {font-size:13px; color:var(--muted); margin-bottom:0}
+.工坊进度 {font-size:12px; padding:8px 12px; background:var(--soft); border:0}
+.工序导航 {margin:22px 0; gap:8px}
+.工序导航 button {flex:1; min-width:80px; padding:10px; border-radius:6px; font-size:13px}
+.工序导航 button span {color:var(--muted); font-weight:400}
+.工序导航 button.选中 {background:var(--accent); color:white}
+.工序导航 button.选中 span {color:#d5e4db}
+.场景台 {border-color:var(--line); border-radius:10px; background:var(--art)}
+.场景栏 {background:var(--accent); padding:14px 20px}
+.场景栏 h3 {color:white; font-size:15px}
+.场景栏 a {color:#f1e5be; font-size:12px}
+.场景内容 {background:var(--art); background-image:none; min-height:310px; padding:24px}
+.场景内容 h3 {font-size:20px; margin:16px 0 4px}
+.场景内容 p {font-size:13px; max-width:60ch}
+.立方体标志 {font-size:76px; line-height:1; text-shadow:none; color:var(--accent)}
+.场景内容 .primary {background:var(--accent); border-radius:7px}
+.工坊 .工序笔记 {border-top:1px solid var(--line); padding:24px 0 0}
+.工序笔记 h2 {font-size:24px}
+.工序笔记 h3 {font-size:14px; margin-top:18px}
+.工序笔记 p {font-size:13px}
+.场景说明 {color:var(--muted); font-size:12px}
+.课堂边界 {margin-top:24px; padding-bottom:0; font-size:12px}
+#ppeVideo {background:#1d2924!important; border-radius:10px!important; max-height:70vh; width:100%; object-fit:contain}
+#ppeStatus {font-size:12px; color:var(--muted)}
+#ppeAlarm {font-size:14px; border-radius:7px; min-height:54px; font-weight:550}
+#classroomMonitor {border-top:3px solid var(--accent)}
+#monitorClients .entry {margin:0; background:var(--surface); border:1px solid var(--line); border-radius:9px; padding:14px}
+#monitorClients .entry button {border:0; overflow:hidden}
+#monitorClients .entry small {display:block; margin-top:8px}
+.content>.grid:has(#sketchPhoto)>section,.content>.grid:has(#sketchPhoto)>details {max-width:none}
+.steps {font-size:13px}
+.sketch-workspace {display:grid; grid-template-columns:minmax(0,1.4fr) minmax(290px,1fr); gap:22px; align-items:start}
+.sketch-workspace .card {min-width:0}
+.sketch-editor .section-heading {margin:0 0 20px}
+.sketch-editor .section-heading>.muted {font-size:11px}
+.sketch-preview {display:flex; flex-direction:column; align-items:center; justify-content:center; aspect-ratio:1.65; max-height:340px; background:var(--page); border:1px dashed #c3d0c7; border-radius:8px; margin-bottom:20px; color:var(--muted); overflow:hidden}
+.sketch-preview>.studio-icon {width:44px; height:44px; flex-basis:44px; stroke-width:1; color:var(--accent)}
+.sketch-preview>p {font-size:14px; margin:16px 0 4px}
+.sketch-preview>small {font-size:11px}
+.sketch-preview>.thumb {width:100%; height:100%; max-height:340px; object-fit:contain}
+.sketch-advisor {display:flex; flex-direction:column}
+.feedback-placeholder {text-align:center; padding:42px 0; color:var(--muted)}
+.feedback-placeholder>.studio-icon {width:34px; height:34px; color:var(--accent); stroke-width:1}
+.feedback-placeholder h3 {font-size:19px; margin:20px 0 8px}
+.feedback-placeholder p {font-size:13px; margin:0}
+.sketch-advisor:has(#feedbackCard:not([hidden])) .feedback-placeholder {display:none}
+.advice-controls {border-top:1px solid var(--line); padding-top:16px; margin-top:18px}
+.advice-controls .actions {margin:16px 0}
+.advice-note {font-size:11px; margin-bottom:0}
+#aiStatus,#analysisStatus {font-size:12px; color:var(--muted)}
+.content[data-view=sketch]>.grid {gap:0}
+.content[data-view=sketch] .actions {flex-wrap:wrap}
+.content[data-view=test]>.card:first-of-type {max-width:900px}
+/* Match both existing export templates to the chosen solid-color palette. */
+.cinema-poster {background:#244d41!important; color:#f6eed9; box-shadow:none; border:1px solid #244d41; border-radius:10px}
+.cinema-top,.cinema-footer {color:#dae3d5; letter-spacing:1px}
+.cinema-orbit {border-color:#a4bd9580; box-shadow:none}
+.cinema-photo img {box-shadow:none; background:transparent}
+.cinema-photo p,.cinema-copy p,.cinema-credit {color:#dae3d5}
+.cinema-kicker {color:#e3d7ab; letter-spacing:2px}
+.cinema-copy h2 {color:#fff7e1!important; text-shadow:none}
+.cinema-footer {border-color:#73917c}
+.growth-poster {background:var(--surface); border-color:var(--line); border-top:5px solid var(--accent); border-radius:10px}
+.growth-poster>.eyebrow {color:var(--accent); letter-spacing:0; font-size:12px}
+.growth-poster .entry {border-color:#a6bfb0; background:var(--page)}
+.growth-poster h3 {border-color:var(--line)}
+@media(hover:hover) and (pointer:fine) {
+  button:hover {background:var(--soft); border-color:#b4c7bb}
+  button.primary:hover {background:var(--accent-hover); border-color:var(--accent-hover)}
+  .side button.nav-item:hover {background:var(--page); color:var(--accent)}
+  .side button.nav-item.active:hover {background:var(--soft)}
+  .quick-row:hover,.activity-row:hover {color:var(--accent); background:transparent}
+}
+@media(min-width:1600px) {.content {padding-top:44px}.project-card {min-height:360px}}
+@media(max-width:1200px) {
+  .home-layout {grid-template-columns:minmax(0,1fr)}
+  .next-up {display:block; padding:20px 24px}
+  .next-up ol {grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; margin:0}
+  .next-up .progress-caption {margin-top:20px}
+  .project-copy {padding:28px}
+}
+@media(max-width:900px) {
+  .sketch-workspace {grid-template-columns:1fr}
+  .shell {grid-template-columns:172px minmax(0,1fr)}
+  .side {padding-inline:12px}
+  .workshop-topbar {padding-inline:24px}
+  .content {padding:28px 24px}
+  .project-copy {padding:24px}
+  .project-copy h2 {font-size:24px}
+  .project-copy .actions {flex-direction:column; align-items:stretch; width:100%}
+  .project-copy .actions button {justify-content:center}
+  .capture-panel {margin-left:196px; margin-right:24px}
+  .grid {grid-template-columns:minmax(0,1fr)}
+}
+@media(max-width:700px) {
+  .shell {display:flex; flex-direction:column; min-height:0}
+  .side {position:static; min-height:0; padding:16px 0 0; border-right:0; border-bottom:1px solid var(--line); width:100%; display:block}
+  .workshop-brand {margin:0 18px 14px; width:fit-content}
+  .workshop-brand>strong {font-size:19px}
+  .brand-sub,.side .nav-caption {display:none}
+  .workshop-nav {flex-direction:row; overflow-x:auto; overscroll-behavior-x:contain; scrollbar-width:thin; padding:0 12px 9px; gap:4px}
+  .side button.nav-item {width:auto; flex-shrink:0; min-height:42px; padding:10px 12px; font-size:12px; gap:8px}
+  .side button.teacher-link {margin-top:0}
+  .nav-item small {display:none}
+  .nav-item .studio-icon {width:17px; height:17px; flex-basis:17px}
+  .side .project-switcher {display:flex; align-items:center; gap:8px; padding:8px 18px; border-top:1px solid var(--line); background:var(--page); margin:0}
+  .project-switcher label {display:none}
+  .project-switcher select {max-width:none; flex:1; width:0; margin:0; background:var(--surface); font-size:12px}
+  .side #newProject {width:auto; white-space:nowrap; margin:0; font-size:12px; padding:6px}
+  .side .project-switcher p {display:none}
+  .workshop-topbar {height:54px; padding:0 18px; gap:10px}
+  .breadcrumb {font-size:11px; gap:8px}
+  .breadcrumb span:first-child {max-width:16ch}
+  .workshop-identity {font-size:10px; gap:6px; max-width:35%}
+  .identity-dot {width:24px; height:24px}
+  .content {padding:26px 18px}
+  h1 {font-size:25px}
+  .page-heading {margin-bottom:22px}
+  .page-heading p {font-size:12px}
+  .project-card {grid-template-columns:minmax(0,1fr)}
+  .project-copy {padding:24px; gap:16px}
+  .project-copy h2 {font-size:26px}
+  .project-copy .actions {flex-direction:row; flex-wrap:wrap; padding-top:8px}
+  .workshop-art {min-height:232px; padding:12px 18px 16px}
+  .workshop-drawing {max-height:210px}
+  .workshop-art>.thumb {height:215px}
+  .next-up {padding:22px}
+  .next-up ol {grid-template-columns:1fr; gap:14px}
+  .home-bottom {grid-template-columns:1fr; gap:22px; margin-top:24px}
+  .activity-row time {max-width:70px}
+  .activity-row small {max-width:22ch}
+  .content .card {padding:20px}
+  .content details.card {padding:16px 18px}
+  .content .actions button {flex-grow:1}
+  input,textarea,select {font-size:16px}
+  .capture-panel {margin:0 18px 22px; padding:14px 16px}
+  .工坊 {padding:20px}
+  .工坊标题 {display:block}
+  .工坊标题 h2 {font-size:19px}
+  .工坊进度 {display:inline-block; margin-top:14px}
+  .工序导航 {display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px}
+  .工序导航 button {min-width:0}
+  .场景栏 {padding:14px; flex-wrap:wrap; gap:8px}
+  .场景内容 {padding:18px; min-height:300px}
+  .场景内容 h3 {font-size:18px}
+  .场景内容 iframe {max-width:100%}
+  .record-dialog,dialog {padding:18px}
+  .cinema-poster {padding:24px; min-height:650px}
+  .cinema-photo {height:300px}
+  .cinema-photo img {max-height:280px!important}
+  .cinema-copy h2 {font-size:34px}
+  .growth-poster {padding:22px}
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after {animation:none!important; transition:none!important; scroll-behavior:auto!important}
+  button:active:not(:disabled) {transform:none}
+}
+@media print {
+  .side,.workshop-topbar,.page-heading,.capture-panel,.skip-link {display:none!important}
+  .shell {display:block; min-height:0}
+  .content {padding:0; max-width:none; background:white}
+  .cinema-poster,.growth-poster {-webkit-print-color-adjust:exact; print-color-adjust:exact}
+}
+.site-footer { display:flex; flex-wrap:wrap; gap:8px 20px; padding:24px 32px; color:var(--muted, #66746d); font-size:12px; line-height:1.6; }
+.site-footer a { color:inherit; text-underline-offset:3px; }
+@media (max-width: 640px) { .site-footer { padding:20px; } }
+@media print { .site-footer { display:none; } }
